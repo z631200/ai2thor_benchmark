@@ -1,0 +1,707 @@
+[
+    {
+        "step": 1,
+        "timestamp": 1770957922.018466,
+        "action": "ShowDetail",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 2,
+        "timestamp": 1770957937.176681,
+        "action": "RotateLeft",
+        "target": 90,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 3,
+        "timestamp": 1770957939.6934521,
+        "action": "MoveAhead",
+        "target": 1,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 4,
+        "timestamp": 1770957942.6467915,
+        "action": "LookDown",
+        "target": null,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 5,
+        "timestamp": 1770957945.8000216,
+        "action": "RotateRight",
+        "target": 45,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 6,
+        "timestamp": 1770957953.7373142,
+        "action": "OpenObject",
+        "target": "drawer",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 7,
+        "timestamp": 1770957955.7421896,
+        "action": "ShowDetail",
+        "target": "knife",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 8,
+        "timestamp": 1770957958.379505,
+        "action": "PickupObject",
+        "target": "knife",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 9,
+        "timestamp": 1770957961.5632849,
+        "action": "CloseObject",
+        "target": "drawer",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 10,
+        "timestamp": 1770957964.6458063,
+        "action": "RotateLeft",
+        "target": 45,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 11,
+        "timestamp": 1770957966.9587796,
+        "action": "MoveAhead",
+        "target": 1.5,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 12,
+        "timestamp": 1770957969.6905792,
+        "action": "RotateRight",
+        "target": 45,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 13,
+        "timestamp": 1770957972.0302646,
+        "action": "SliceObject",
+        "target": "potato",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 14,
+        "timestamp": 1770957974.3722336,
+        "action": "PutObject",
+        "target": "CounterTop",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 15,
+        "timestamp": 1770957978.1408536,
+        "action": "RotateLeft",
+        "target": 135,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 16,
+        "timestamp": 1770957980.4681976,
+        "action": "MoveAhead",
+        "target": 1,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 17,
+        "timestamp": 1770957983.522754,
+        "action": "RotateLeft",
+        "target": 90,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 18,
+        "timestamp": 1770957985.8519406,
+        "action": "PickupObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 19,
+        "timestamp": 1770957989.1898978,
+        "action": "RotateLeft",
+        "target": 90,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 20,
+        "timestamp": 1770957991.5451384,
+        "action": "MoveAhead",
+        "target": 1,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 21,
+        "timestamp": 1770957994.2937524,
+        "action": "RotateLeft",
+        "target": 45,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 22,
+        "timestamp": 1770957996.5782228,
+        "action": "MoveAhead",
+        "target": 0.25,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 23,
+        "timestamp": 1770958001.0396042,
+        "action": "PutObject",
+        "target": "CounterTop",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 24,
+        "timestamp": 1770958003.3796468,
+        "action": "PickupObject",
+        "target": "PotatoSliced",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 25,
+        "timestamp": 1770958005.7236214,
+        "action": "PutObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 26,
+        "timestamp": 1770958008.0183704,
+        "action": "PickupObject",
+        "target": "PotatoSliced",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 27,
+        "timestamp": 1770958010.535492,
+        "action": "PutObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 28,
+        "timestamp": 1770958012.8368154,
+        "action": "PickupObject",
+        "target": "PotatoSliced",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 29,
+        "timestamp": 1770958015.2705982,
+        "action": "PutObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 30,
+        "timestamp": 1770958017.8195717,
+        "action": "PickupObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 31,
+        "timestamp": 1770958021.9495623,
+        "action": "RotateLeft",
+        "target": 135,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 32,
+        "timestamp": 1770958024.3239188,
+        "action": "MoveAhead",
+        "target": 1,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 33,
+        "timestamp": 1770958027.4636185,
+        "action": "RotateRight",
+        "target": 90,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 34,
+        "timestamp": 1770958030.1355767,
+        "action": "LookUp",
+        "target": null,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 35,
+        "timestamp": 1770958035.1859963,
+        "action": "OpenObject",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 36,
+        "timestamp": 1770958037.548384,
+        "action": "PutObject",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 37,
+        "timestamp": 1770958040.0579252,
+        "action": "CloseObject",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 38,
+        "timestamp": 1770958042.3480642,
+        "action": "ToggleObjectOn",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 39,
+        "timestamp": 1770958044.6209848,
+        "action": "ToggleObjectOff",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 40,
+        "timestamp": 1770958049.6561205,
+        "action": "OpenObject",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 41,
+        "timestamp": 1770958051.9412465,
+        "action": "PickupObject",
+        "target": "bowl",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 42,
+        "timestamp": 1770958054.471445,
+        "action": "CloseObject",
+        "target": "microwave",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 43,
+        "timestamp": 1770958058.287669,
+        "action": "RotateLeft",
+        "target": 135,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 44,
+        "timestamp": 1770958060.6221077,
+        "action": "MoveAhead",
+        "target": null,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 45,
+        "timestamp": 1770958063.3819423,
+        "action": "RotateLeft",
+        "target": 45,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": false,
+            "details": {
+                "goal_ok": false
+            }
+        }
+    },
+    {
+        "step": 46,
+        "timestamp": 1770958065.6980717,
+        "action": "PutObject",
+        "target": "CounterTop",
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": true,
+            "details": {
+                "goal_ok": true
+            }
+        }
+    },
+    {
+        "step": 47,
+        "timestamp": 1770958068.0091367,
+        "action": "MoveBack",
+        "target": null,
+        "success": true,
+        "error_message": "",
+        "referee_feedback": "裁判判定: 動作執行成功",
+        "goal_status": {
+            "is_success": true,
+            "details": {
+                "goal_ok": true
+            }
+        }
+    }
+]
