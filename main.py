@@ -11,9 +11,7 @@ def find_object_id_by_type(controller, obj_type):
     return None
 
 def customize_env(controller):
-    # main.py 裡：在 platform.load_task(task) 之後
-
-    knife_id = find_object_id_by_type(controller, 'Knife')  # 你 main.py 已有這個 helper :contentReference[oaicite:1]{index=1}
+    knife_id = find_object_id_by_type(controller, 'Knife')  
     if not knife_id:
         print("找不到 Knife")
     else:
@@ -26,7 +24,7 @@ def customize_env(controller):
                 objectId=knife_id,
                 position=target_pos,
                 rotation=target_rot,
-                forceAction=False,   # 避免因碰撞/可達性限制而拒絕
+                forceAction=False,
             )
 
             print(f"TeleportObject success =", ev.metadata.get("lastActionSuccess", False))
@@ -43,7 +41,7 @@ def main():
         controller,
         record_video=RECORD_VIDEO,
         video_path="./run.mp4",
-        fps=10
+        fps=8
     )
 
     task = TaskDefinition('task_cook_potato', 'FloorPlan1', 'Cook a potato')
@@ -86,7 +84,7 @@ def main():
 
     potato_id = find_object_id_by_type(controller, 'Potato')
     microwave_id = find_object_id_by_type(controller, 'Microwave')
-    customize_env(controller)
+    # customize_env(controller)
 
     if not potato_id or not microwave_id:
         print('錯誤: 場景中找不到 Potato 或 Microwave，請重試 (隨機生成問題)')
@@ -95,10 +93,15 @@ def main():
 
     action_plan = [
         ('ShowDetail', 'bowl'),
+        ('Wait', 1),
         # ('Teleport', 'knife'),
         ('RotateLeft', 90),
-        ('MoveAhead', 1),
-        ('LookDown', None),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('LookDown', 15),
+        ('LookDown', 15),
         ('RotateRight', 45),
         ('OpenObject', 'drawer'),
         ('ShowDetail', 'knife'),
@@ -107,18 +110,29 @@ def main():
         ('CloseObject', 'drawer'),
         # ('Teleport', 'potato'),
         ('RotateLeft', 45),
-        ('MoveAhead', 1.5),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
         ('RotateRight', 45),
         ('SliceObject', 'potato'),        
         ('PutObject', 'CounterTop'),
         # ('Teleport', 'bowl'),
         ('RotateLeft', 135),
-        ('MoveAhead', 1),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
         ('RotateLeft', 90),
         ('PickupObject', 'bowl'),
         # ('Teleport', 'potato'),
         ('RotateLeft', 90),
-        ('MoveAhead', 1),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
         ('RotateLeft', 45),
         ('MoveAhead', 0.25),
         ('PutObject', 'CounterTop'),
@@ -131,27 +145,33 @@ def main():
         ('PickupObject', 'bowl'),
         # ('Teleport', 'microwave'),
         ('RotateLeft', 135),
-        ('MoveAhead', 1),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
+        ('MoveAhead', 0.25),
         ('RotateRight', 90),
-        ('LookUp', None),
+        ('LookUp', 15),
+        ('LookUp', 15),
         ('OpenObject', 'microwave'),
         ('PutObject', 'microwave'),
         ('CloseObject', 'microwave'),
         ('ToggleObjectOn', 'microwave'),
+        ('Wait', 1),
         ('ToggleObjectOff', 'microwave'),
         ('OpenObject', 'microwave'),
         ('PickupObject', 'bowl'),
         ('CloseObject', 'microwave'),
         # ('Teleport', 'final'),
         ('RotateLeft', 135),
-        ('MoveAhead', None),
+        ('MoveAhead', 0.25),
         ('RotateLeft', 45),
         ('PutObject', 'CounterTop'),
-        ('MoveBack', None),
+        ('MoveBack', 0.25),
+        ('Wait', 1),
         ('Done', None),
     ]
 
-    post_success_steps = 2   # 成功後再跑 8 步（可調）
+    post_success_steps = 3   # 成功後多跑幾步以觀察結果
     success_seen = False
     remaining = 0
 

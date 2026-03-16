@@ -20,13 +20,11 @@ class RobotInterface:
         self.frame_hook = frame_hook
 
     def _after_step(self, event):
-        # 每次 controller.step 後呼叫，讓外部決定要不要錄影
         if callable(self.frame_hook):
             frame = getattr(event, "frame", None)
             if frame is not None:
                 self.frame_hook(frame)
 
-    # ---------- 新增：target 自動解析（名稱 -> objectId）----------
 
     @staticmethod
     def _is_thor_object_id(s: Any) -> bool:
@@ -59,10 +57,8 @@ class RobotInterface:
         if action_cmd == "SliceObject":
             return bool(obj.get("sliceable", False))
         if action_cmd == "PutObject":
-            # PutObject 若指定 target，我們用 PutObject -> target 必須是 receptacle
             return bool(obj.get("receptacle", False))
 
-        # 其他動作預設不做限制（或你可視需求加強）
         return True
 
     @staticmethod
@@ -112,13 +108,12 @@ class RobotInterface:
             return None
 
         # --- 決定畫面中心座標（支援 normalized 或 pixel） ---
-        # 1) 先嘗試用 frame 尺寸（最可靠）
+        # 1) 用 frame 尺寸推斷中心
         frame = getattr(self.controller.last_event, "frame", None)
         frame_w = frame.shape[1] if frame is not None and hasattr(frame, "shape") else None
         frame_h = frame.shape[0] if frame is not None and hasattr(frame, "shape") else None
 
-        # 2) 如果拿不到 frame，就先假設 normalized center (0.5, 0.5)
-        #    若遇到 pixel 座標，我們會在排序 key 裡自動判斷並改用 W/2,H/2（若 W/H 可得）
+        # 2) 假設 normalized center (0.5, 0.5)
         norm_center = (0.5, 0.5)
 
         def sort_key(o: Dict[str, Any]) -> float:
@@ -127,31 +122,23 @@ class RobotInterface:
                 x = float(sp.get("x", 0.0))
                 y = float(sp.get("y", 0.0))
 
-                # 判斷 screenPosition 是 normalized 還是 pixel：
-                # - 大多數情況 normalized 會落在 [0,1]
-                # - pixel 則通常 > 1
                 is_normalized = (0.0 <= x <= 1.5) and (0.0 <= y <= 1.5)
 
                 if is_normalized:
                     cx, cy = norm_center
                     return self._sq_screen_dist({"x": x, "y": y}, cx, cy)
 
-                # pixel：若有 frame 尺寸就用中心點 (W/2, H/2)，否則退回用 normalized center 的縮放近似
                 if frame_w is not None and frame_h is not None:
                     cx, cy = frame_w / 2.0, frame_h / 2.0
                     return self._sq_screen_dist({"x": x, "y": y}, cx, cy)
 
-                # frame 尺寸不可得：保守 fallback（避免除零/亂猜），改用 agent distance
                 return self._sq_dist(agent_pos, o.get("position", {}))
 
-            # 沒有 screenPosition：fallback 使用 agent distance
             return self._sq_dist(agent_pos, o.get("position", {}))
 
         candidates.sort(key=sort_key)
         return candidates[0].get("objectId")
 
-
-    # ---------- 新增：PutObject 兼容呼叫（不同 THOR 版本參數差異）----------
 
     def _put_object_compat(self, receptacle_id: str):
         """
@@ -160,7 +147,6 @@ class RobotInterface:
         - 舊版常見：PutObject(receptacleObjectId=...)
         會先嘗試 objectId，若回報參數錯誤再 fallback。
         """
-        # 先試 objectId 版本
         try:
             ev = self.controller.step(
                 action="PutObject",
@@ -176,14 +162,12 @@ class RobotInterface:
         except Exception:
             pass
 
-        # fallback：receptacleObjectId 版本
         return self.controller.step(
             action="PutObject",
             receptacleObjectId=receptacle_id,
             forceAction=False,
         )
 
-    # ---------- 原本 parse_and_execute：加上自動解析 ----------
 
     def parse_and_execute(self, action_cmd: str, target: Any = None):
         """
@@ -257,10 +241,8 @@ class RobotInterface:
 
             elif action_cmd == "Teleport":
                 position = None
-                # 情況 A: target 是座標字典
                 if isinstance(target, dict) and "x" in target:
                     position = target
-                # 情況 B: target 是字串且在 dic_objloc
                 elif isinstance(target, str) and target in self.dic_objloc:
                     coords = self.dic_objloc[target]
                     position = {"x": coords[0], "y": coords[1], "z": coords[2]}
@@ -271,12 +253,10 @@ class RobotInterface:
                     }
                 event = self.controller.step(action="Teleport", position=position)
 
-            # --- 互動動作：先把 target 名稱解析為 objectId（若需要） ---
+            # --- 互動動作 ---
             elif action_cmd in ["PutObject", "OpenObject", "CloseObject", "PickupObject", "ToggleObjectOn", "SliceObject", "ToggleObjectOff"]:
 
-                # PutObject 的特殊 target（center / 螢幕座標）要先攔截，避免被當成 objectType 去 resolve
                 if action_cmd == "PutObject":
-                    # 1) 放到畫面中心
                     if target == "center":
                         event = self.controller.step(
                             action="PutObject",
@@ -290,7 +270,6 @@ class RobotInterface:
                             "message": event.metadata.get("errorMessage", ""),
                         }
 
-                    # 2) 放到指定螢幕座標（0~1），例如 {"x":0.5,"y":0.5}
                     if isinstance(target, dict) and ("x" in target) and ("y" in target) and ("z" not in target):
                         event = self.controller.step(
                             action="PutObject",
@@ -304,7 +283,6 @@ class RobotInterface:
                             "message": event.metadata.get("errorMessage", ""),
                         }
 
-                # 如果 target 是字串但不像 objectId，視為 objectType 名稱，嘗試解析成 objectId
                 if isinstance(target, str) and (not self._is_thor_object_id(target)):
                     resolved = self._resolve_target_object_id(
                         target_name=target,
@@ -319,40 +297,30 @@ class RobotInterface:
                     target = resolved
 
                 if action_cmd == "PutObject":
-                    # 有 target（receptacle 的 objectId）：PutObject；否則 DropHandObject
                     if isinstance(target, str) and self._is_thor_object_id(target):
                         event = self._put_object_compat(target)
                     else:
                         event = self.controller.step(action="DropHandObject")
-                
-                # 修改 robot_interface.py 中的 OpenObject 區段
 
                 elif action_cmd == "OpenObject":
-                    # 1. 確保 target 已解析為 objectId
                     if isinstance(target, str) and (not self._is_thor_object_id(target)):
                         target = self._resolve_target_object_id(target, action_cmd)
                     
                     if target:
-                        # 2. 定義動畫參數
-                        steps = 5  # 分成 10 步打開
+                        steps = 5  
                         for i in range(1, steps + 1):
                             fraction = i / steps
-                            # 呼叫 OpenObject 並指定開啟幅度 (0.0 ~ 1.0)
                             event = self.controller.step(
                                 action=action_cmd,
                                 objectId=target,
-                                openness=fraction, # 指定開啟比例
+                                openness=fraction,
                                 forceAction=False
                             )
                             self._after_step(event)
                             time.sleep(0.05)
-                            # 如果某一步失敗，則停止
                             if not event.metadata.get("lastActionSuccess", False):
                                 break
-                            # 這裡可以選擇是否加一點微小的延遲，
-                            # 但 controller.step 執行本身就有耗時，通常已有動畫感。
                     else:
-                        # 若無 target，則對畫面中心執行一次性開啟
                         event = self.controller.step(action="OpenObject", x=0.5, y=0.5)
 
                 else:
@@ -368,7 +336,6 @@ class RobotInterface:
                     if isinstance(target, str) and self._is_thor_object_id(target):
                         event = self.controller.step(action=thor_action, objectId=target)
                     else:
-                        # 未指定 target：操作畫面中心
                         print(f"[System] 未指定 Target ID，嘗試對畫面中心執行 {thor_action}")
                         event = self.controller.step(action=thor_action, x=0.5, y=0.5)
 
@@ -391,6 +358,21 @@ class RobotInterface:
                     print(json.dumps(obj, ensure_ascii=False, indent=2))
 
                 return {"success": True, "message": ""}
+            
+            
+            elif action_cmd == "Wait":
+                duration = float(target) if target is not None else 1.0
+                step_interval = 0.1  
+                elapsed = 0.0
+                print(f"[Wait] 開始等待 {duration} 秒...")
+
+                while elapsed < duration:
+                    time.sleep(step_interval)
+                    self._after_step(self.controller.last_event)
+                    
+                    elapsed += step_interval
+
+                event = self.controller.last_event
 
 
             else:
