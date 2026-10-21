@@ -4,4 +4,6 @@ __pycache__/
 outputs/
 /run.mp4
 /trace_log.json
+/local/run.mp4
+/local/trace_log.json
 .pytest_cache/
