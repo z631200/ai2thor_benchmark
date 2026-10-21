@@ -1,0 +1,3 @@
+# Scene graph pipeline: Python 3.10+ standard library only.
+# Ollama must be installed separately and serve gemma4:e4b.
+# Simulator dependencies, if needed on another computer, are in local/requirements.txt.
