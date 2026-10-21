@@ -17,6 +17,8 @@ class Referee:
             return {'is_success': ok, 'details': details}
 
         # 2) Legacy tuple-goals
+        if not task.goal_conditions:
+            return {'is_success': False, 'details': {'error': 'No goal configured'}}
         goals_by_type = {}
         for cond in task.goal_conditions:
             goals_by_type.setdefault(cond.object_type, []).append(cond)

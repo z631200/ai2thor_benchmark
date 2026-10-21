@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+outputs/
+/run.mp4
+/trace_log.json
+.pytest_cache/

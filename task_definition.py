@@ -30,8 +30,9 @@ class TaskDefinition:
 
     def set_goal_pddl(self, pddl_goal: str):
         """設定 PDDL goal（可傳入 (:goal <expr>) 或直接 <expr>）"""
+        goal_ast = parse_goal_pddl(pddl_goal)
         self.goal_pddl = pddl_goal
-        self.goal_ast = parse_goal_pddl(pddl_goal)
+        self.goal_ast = goal_ast
 
     def get_initial_config(self) -> Dict:
         return {

@@ -1,20 +1,10 @@
 # robot_interface.py
-import ai2thor.controller
 from typing import Any, Dict, Optional
-import math
 import json
+import math
 import time
 
 class RobotInterface:
-    dic_objloc = {
-        "knife": [-1, 0.9, -0.25],
-        "potato": [-1, 0.9, -1.5],
-        "sink": [-1, 0.9, -1.5],
-        "microwave": [-0.25, 0.9, -1.25],
-        "bowl": [0.25, 0.9, -1.25],
-        "final": [0.25, 0.9, -1.25],
-    }
-
     def __init__(self, controller, frame_hook=None):
         self.controller = controller
         self.frame_hook = frame_hook
@@ -46,13 +36,11 @@ class RobotInterface:
         """
         依 action 判斷「可互動」：避免選到可見但不可執行該動作的物件。
         """
-        action_cmd = action_cmd
-
         if action_cmd in ("OpenObject", "CloseObject"):
             return bool(obj.get("openable", False))
         if action_cmd == "PickupObject":
             return bool(obj.get("pickupable", False))
-        if action_cmd == "ToggleObjectOn":
+        if action_cmd in ("ToggleObjectOn", "ToggleObjectOff"):
             return bool(obj.get("toggleable", False))
         if action_cmd == "SliceObject":
             return bool(obj.get("sliceable", False))
@@ -140,42 +128,14 @@ class RobotInterface:
         return candidates[0].get("objectId")
 
 
-    def _put_object_compat(self, receptacle_id: str):
-        """
-        兼容不同 AI2-THOR 版本的 PutObject 參數：
-        - 新版常見：PutObject(objectId=...)
-        - 舊版常見：PutObject(receptacleObjectId=...)
-        會先嘗試 objectId，若回報參數錯誤再 fallback。
-        """
-        try:
-            ev = self.controller.step(
-                action="PutObject",
-                objectId=receptacle_id,
-                forceAction=False,
-            )
-            if ev.metadata.get("lastActionSuccess", False):
-                return ev
-
-            msg = (ev.metadata.get("errorMessage") or "")
-            if "invalid argument" not in msg:
-                return ev
-        except Exception:
-            pass
-
-        return self.controller.step(
-            action="PutObject",
-            receptacleObjectId=receptacle_id,
-            forceAction=False,
-        )
-
-
     def parse_and_execute(self, action_cmd: str, target: Any = None):
         """
         執行動作。
-        支援動作: MoveAhead, RotateLeft/right, LookUp/down, Teleport,
-                 OpenObject, CloseObject, PickupObject, ToggleObjectOn, SliceObject, PutObject
+        支援動作: MoveAhead/Back, RotateLeft/Right, LookUp/Down, Teleport,
+                 OpenObject, CloseObject, PickupObject, ToggleObjectOn/Off,
+                 SliceObject, PutObject, Stand, Done, ShowDetail, Wait
 
-        新增能力：
+        目標解析：
         - 若 target 是 objectType 名稱（如 'Potato'），會自動在可見且可互動的物件中找最近者，轉成 objectId 後執行。
         - PutObject 支援：
           * target=None：DropHandObject（丟地板）
@@ -183,7 +143,6 @@ class RobotInterface:
           * target={"x":0~1,"y":0~1}：PutObject(x,y,putNearXY=True)（放到指定螢幕座標附近）
           * target=receptacle 的 objectId 或 objectType 名稱：PutObject 到 receptacle
         """
-        action_cmd = action_cmd
         event = None
 
         try:
@@ -195,7 +154,7 @@ class RobotInterface:
                 event = self.controller.step(action="Stand")
 
             elif action_cmd in ["MoveAhead", "MoveBack"]:
-                if target==None:
+                if target is None:
                     target = 0.25
                 event = self.controller.step(action=action_cmd, moveMagnitude=target)
                     
@@ -206,6 +165,10 @@ class RobotInterface:
 
                 total = float(target)
                 total = abs(total)
+                if not math.isfinite(total):
+                    return {"success": False, "message": "Angle must be finite"}
+                if total == 0:
+                    return {"success": True, "message": ""}
 
                 step_deg = 30
                 remaining = total
@@ -221,10 +184,14 @@ class RobotInterface:
 
 
             elif action_cmd in ["LookUp", "LookDown"]:
-                if target == None:
+                if target is None:
                     target = 30
                 total = float(target)
                 total = abs(total)
+                if not math.isfinite(total):
+                    return {"success": False, "message": "Angle must be finite"}
+                if total == 0:
+                    return {"success": True, "message": ""}
 
                 step_deg = 15.0
                 remaining = total
@@ -241,15 +208,12 @@ class RobotInterface:
 
             elif action_cmd == "Teleport":
                 position = None
-                if isinstance(target, dict) and "x" in target:
+                if isinstance(target, dict) and all(k in target for k in ("x", "y", "z")):
                     position = target
-                elif isinstance(target, str) and target in self.dic_objloc:
-                    coords = self.dic_objloc[target]
-                    position = {"x": coords[0], "y": coords[1], "z": coords[2]}
                 else:
                     return {
                         "success": False,
-                        "message": f"Teleport 失敗: target '{target}' 無效或不在 dic_objloc 中",
+                        "message": "Teleport 需要包含 x、y、z 的座標字典",
                     }
                 event = self.controller.step(action="Teleport", position=position)
 
@@ -298,14 +262,13 @@ class RobotInterface:
 
                 if action_cmd == "PutObject":
                     if isinstance(target, str) and self._is_thor_object_id(target):
-                        event = self._put_object_compat(target)
+                        event = self.controller.step(
+                            action="PutObject", objectId=target, forceAction=False
+                        )
                     else:
                         event = self.controller.step(action="DropHandObject")
 
                 elif action_cmd == "OpenObject":
-                    if isinstance(target, str) and (not self._is_thor_object_id(target)):
-                        target = self._resolve_target_object_id(target, action_cmd)
-                    
                     if target:
                         steps = 5  
                         for i in range(1, steps + 1):
@@ -325,7 +288,6 @@ class RobotInterface:
 
                 else:
                     thor_action = {
-                        "OpenObject": "OpenObject",
                         "CloseObject": "CloseObject",
                         "PickupObject": "PickupObject",
                         "ToggleObjectOn": "ToggleObjectOn",
@@ -362,6 +324,8 @@ class RobotInterface:
             
             elif action_cmd == "Wait":
                 duration = float(target) if target is not None else 1.0
+                if not math.isfinite(duration) or duration < 0:
+                    return {"success": False, "message": "Duration must be finite and nonnegative"}
                 step_interval = 0.1  
                 elapsed = 0.0
                 print(f"[Wait] 開始等待 {duration} 秒...")
@@ -372,7 +336,7 @@ class RobotInterface:
                     
                     elapsed += step_interval
 
-                event = self.controller.last_event
+                return {"success": True, "message": ""}
 
 
             else:

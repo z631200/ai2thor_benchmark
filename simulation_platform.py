@@ -2,8 +2,6 @@
 import json
 import time
 import os
-import cv2
-import numpy as np
 from robot_interface import RobotInterface
 from benchmark_referee import Referee
 from task_definition import TaskDefinition
@@ -26,16 +24,21 @@ class Logger:
         })
 
     def save(self):
+        os.makedirs(os.path.dirname(self.filepath) or ".", exist_ok=True)
         with open(self.filepath, 'w', encoding='utf-8') as f:
             json.dump(self.history, f, indent=4, ensure_ascii=False)
         print(f"[Logger] 紀錄已儲存至 {self.filepath}")
 
 class SimulationPlatform:
-    def __init__(self, controller, record_video: bool = False, video_path: str = "run.mp4", fps: int = 5):
+    def __init__(
+        self, controller, record_video: bool = False,
+        video_path: str = "run.mp4", fps: int = 5,
+        log_path: str = "trace_log.json",
+    ):
         self.controller = controller
         self.robot = RobotInterface(controller, frame_hook=self._on_frame_captured)
         self.referee = Referee()
-        self.logger = Logger()
+        self.logger = Logger(log_path)
         self.current_task = None
         self.step_count = 0
         self.record_video = record_video
@@ -49,6 +52,7 @@ class SimulationPlatform:
         """
         if not self.record_video:
             return
+        import cv2
         
         if self._video_writer is None:
             if frame is None:
@@ -58,8 +62,9 @@ class SimulationPlatform:
             fourcc = cv2.VideoWriter_fourcc(*"mp4v")
             self._video_writer = cv2.VideoWriter(self.video_path, fourcc, self.fps, (w, h))
             if not self._video_writer.isOpened():
-                print(f"[Video] Error: VideoWriter 無法開啟 {self.video_path}")
-                return
+                self._video_writer.release()
+                self._video_writer = None
+                raise RuntimeError(f"VideoWriter 無法開啟 {self.video_path}")
             print(f"[Video] 開始錄影：{self.video_path} ({w}x{h}, fps={self.fps})")
 
         if frame is not None:
@@ -68,14 +73,17 @@ class SimulationPlatform:
     def load_task(self, task: TaskDefinition):
         self.current_task = task
         print(f"[Platform] 載入任務: {task.instruction}")
-        self.controller.reset(scene=task.scene_id)
+        self.controller.reset(**task.get_initial_config())
         self.step_count = 0
+        self.logger.history.clear()
 
         if self.record_video:
-             self._on_frame_captured(self.controller.last_event.frame)
+            self._on_frame_captured(self.controller.last_event.frame)
 
-    def run_step(self, action: str, target_id: str = None):
+    def run_step(self, action: str, target_id=None):
         """AI 呼叫此函式來執行一步"""
+        if self.current_task is None:
+            raise RuntimeError("Call load_task() before run_step().")
         self.step_count += 1
         result = self.robot.parse_and_execute(action, target_id)
         metadata = self.controller.last_event.metadata
