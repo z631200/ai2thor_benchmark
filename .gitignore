@@ -2,6 +2,10 @@ __pycache__/
 *.py[cod]
 .venv/
 outputs/
+# Track the root sample data; keep other output directories ignored.
+!/outputs/
+/outputs/*
+!/outputs/sample/
 /run.mp4
 /trace_log.json
 /local/run.mp4

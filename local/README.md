@@ -1,8 +1,10 @@
-# ai2thor_benchmark
+# 本機 AI2-THOR 任務示範
+
+本目錄是獨立的模擬器任務流程。根目錄的多視角建圖說明見 [專案 README](../README.md)，兩者的關係見 [架構文件](../docs/architecture.md)。以下指令均先 `cd local` 再執行。
 
 以 AI2-THOR 場景 metadata 評估任務目標的 Python 原型。目前提供一個固定 `FloorPlan1` 示範：取得刀具、切馬鈴薯、裝碗、微波加熱，再將碗放回檯面。動作計畫是手寫腳本，尚未包含自動規劃器、多場景評測、成功率統計或完整 ALFRED benchmark。
 
-**無法執行 AI2-THOR 的電腦仍可閱讀程式、查看 CLI 說明、修改目標並執行離線測試。** 本次整理未啟動模擬器，場景路徑、互動效果與錄影仍須在可執行 AI2-THOR 的環境驗證。
+**無法執行 AI2-THOR 的電腦仍可閱讀程式、查看 CLI 說明、修改目標並執行離線測試。** 場景路徑、互動效果與錄影須在可執行 AI2-THOR 的環境驗證。
 
 ## 專案結構
 
@@ -22,7 +24,7 @@ outputs/                 新執行產物（Git 忽略）
 
 ## 離線開發與驗證
 
-在專案根目錄使用可用的 Python 3 執行；本次以 Python 3.12.7 驗證。不需安裝 `requirements.txt`。
+在 `local/` 目錄使用可用的 Python 3 執行；整理時以 Python 3.12.7 驗證。不需安裝 `requirements.txt`。
 
 ```sh
 python -S -m unittest discover -s tests -v
@@ -149,7 +151,7 @@ assert result["is_success"]
 
 objectType 比對不分大小寫，從可見且符合動作能力的候選選取；有 screenPosition 時偏向畫面中心，否則使用 agent 距離。直接傳入 objectId 時交由模擬器檢查。動作成功與任務成功是兩個不同判定。
 
-## 本次清理與遷移
+## 維護與遷移紀錄
 
 - 原入口內的任務與動作清單移至 `demo_task.py`；移除未呼叫的環境修改函式與註解掉的動作。
 - 移除通用介面內的固定場景 Teleport 名稱捷徑。請改傳座標字典。

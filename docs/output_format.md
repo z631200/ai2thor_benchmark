@@ -1,9 +1,13 @@
 # Text output contract
 
+See [README](../README.md) for quick start, [architecture](architecture.md) for module
+interactions, [Ollama guide](ollama_guide.md) for retry/recovery usage, and
+[research design](research_design.md) for the complete prompts.
+
 All model answers are English Markdown bullets, not JSON. Each section uses an exact
 level-two heading. Records have one line each and use ` | ` as the field separator.
 Use `- None` for an empty section. Do not use pipes within prose fields.
-The README's English prompts are preserved in `scene_prompts.py`; the contract below
+The research design's English prompts are preserved in `scene_prompts.py`; the contract below
 is appended to them. All examples here are illustrative, not observations of the input scene.
 
 ## Stage 1: local observation
