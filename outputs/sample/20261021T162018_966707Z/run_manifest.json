@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-21T16:20:18.966707+00:00",
+  "status": "complete",
+  "scene_dir": "D:\\NSYSU\\AI_LAB\\ai2thor_benchmark\\colab\\scene_output\\20261021T030626_636386Z",
+  "input_hashes": {
+    "views.json": "182347e1979f44e2fd9a7c298e4b44e103c5f481d849c290676ffe239a3eff95",
+    "view_01.png": "c1391c259a7b765db749153959d5aa2e2c228048b6c9d2610ec8cbc50ffa2760",
+    "view_02.png": "d52076d6ae3932146a31686b26fcf9ce83c9833e57754e1cc649de604cb9cab0",
+    "view_03.png": "d005e4cfe332cfb07a7eb21eedd15dabb25b938c5863ca4d1d26e481916abe88",
+    "view_04.png": "30b017d4a6b8159391c55e29278c72b11bfa9af6ea7eff0ea45d9ecbee1570ae"
+  },
+  "config": {
+    "model": "gemma4:e4b",
+    "ollama_url": "http://localhost:11434",
+    "thinking": "on",
+    "options": {
+      "temperature": 0.2,
+      "seed": 42,
+      "num_ctx": 32768,
+      "num_predict": 8192
+    },
+    "verification_budget": 4,
+    "source_hashes": {
+      "scene_prompts.py": "23bb25c659c1da9b45ec7b5e9b68ddc83093936dc036ee525431272e5395639d",
+      "scene_validation.py": "a8c17308ade81b7eab8067f885bbce84f37cd402a35006a97b35ae8b2f1165ab",
+      "run_scene_graph.py": "01aec81b7c9b2fbc9000290838d65898e9d24739cfb65e24d7c8121b47db06fb",
+      "ollama_client.py": "bb58cb87dadb556c857f002616a44d2ad4600e364ac586eee9b50e5b349ac840"
+    }
+  },
+  "completed": {
+    "view_1": {
+      "path": "observations/view_1.md",
+      "sha256": "4202debb95228ef0d6e6aa1145e6d730740b9d4b87e43e5ee85dddaebcacf153"
+    },
+    "view_2": {
+      "path": "observations/view_2.md",
+      "sha256": "69728f974dd4db5e11edc02e1c690070f28f31444adf815108a9b0f0c4b2d7e3"
+    },
+    "view_3": {
+      "path": "observations/view_3.md",
+      "sha256": "b9ecda4e11a76d0b7827f29acd8b76c5d8fd6b68fbb8bfdf4cdb3904ecc7f386"
+    },
+    "view_4": {
+      "path": "observations/view_4.md",
+      "sha256": "3666fb0702f6850168f85c86f08b5fcd12abb9bbd74bf3ae46356257bc3406f6"
+    },
+    "correspondence": {
+      "path": "correspondence.md",
+      "sha256": "8d531167922a65d6afc8e6dd1e4bdf2c0975bf0a191b56e28a2d50bd4a48cd0f"
+    },
+    "scene_graph": {
+      "path": "scene_graph.md",
+      "sha256": "6446826d2dc6161f66da8d2d470bf93c67e991cf1d5c74e43ab4b606b3e2e440"
+    }
+  },
+  "attempts": [
+    {
+      "task": "view_1",
+      "number": 1,
+      "started_at": "2026-10-21T16:20:25.059231+00:00",
+      "status": "valid",
+      "prompt_sha256": "2df25bb6f6a0a104485b40a794ef51c1ae5892a0404cff3352e853e859f86bba",
+      "finished_at": "2026-10-21T16:20:34.181503+00:00",
+      "usage": {
+        "total_duration": 7100007600,
+        "load_duration": 10394800,
+        "prompt_eval_count": 1055,
+        "prompt_eval_duration": 41400000,
+        "eval_count": 1821,
+        "eval_duration": 6954250000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "4202debb95228ef0d6e6aa1145e6d730740b9d4b87e43e5ee85dddaebcacf153"
+    },
+    {
+      "task": "view_2",
+      "number": 1,
+      "started_at": "2026-10-21T16:20:34.186268+00:00",
+      "status": "valid",
+      "prompt_sha256": "d93941fb0947b43a74b0bb25d1f162bc6d435e29d30a20e1c3042537e9772fe6",
+      "finished_at": "2026-10-21T16:20:43.424484+00:00",
+      "usage": {
+        "total_duration": 7180264100,
+        "load_duration": 10490800,
+        "prompt_eval_count": 1055,
+        "prompt_eval_duration": 46755000,
+        "eval_count": 1780,
+        "eval_duration": 7051837000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "69728f974dd4db5e11edc02e1c690070f28f31444adf815108a9b0f0c4b2d7e3"
+    },
+    {
+      "task": "view_3",
+      "number": 1,
+      "started_at": "2026-10-21T16:20:43.428655+00:00",
+      "status": "valid",
+      "prompt_sha256": "d687759584f42dd578d383c7d7376edd5e958b7aa7280470a352fb490cc28c5d",
+      "finished_at": "2026-10-21T16:20:52.790670+00:00",
+      "usage": {
+        "total_duration": 7336165200,
+        "load_duration": 9869200,
+        "prompt_eval_count": 1055,
+        "prompt_eval_duration": 43864000,
+        "eval_count": 1846,
+        "eval_duration": 7209748000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "b9ecda4e11a76d0b7827f29acd8b76c5d8fd6b68fbb8bfdf4cdb3904ecc7f386"
+    },
+    {
+      "task": "view_4",
+      "number": 1,
+      "started_at": "2026-10-21T16:20:52.794815+00:00",
+      "status": "valid",
+      "prompt_sha256": "aef12c60143693ff1f03dea723db685c5deff34545e491bba785b40ddc33c478",
+      "finished_at": "2026-10-21T16:21:00.760980+00:00",
+      "usage": {
+        "total_duration": 5936662900,
+        "load_duration": 10494100,
+        "prompt_eval_count": 1055,
+        "prompt_eval_duration": 34455000,
+        "eval_count": 1534,
+        "eval_duration": 5816724000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "3666fb0702f6850168f85c86f08b5fcd12abb9bbd74bf3ae46356257bc3406f6"
+    },
+    {
+      "task": "correspondence",
+      "number": 1,
+      "started_at": "2026-10-21T16:21:00.765167+00:00",
+      "status": "invalid",
+      "prompt_sha256": "6cf2a6fc8f0c1bc5d1c3f820275ed7143f0730c65f5d78dedec129a8327a832d",
+      "finished_at": "2026-10-21T16:21:16.443256+00:00",
+      "usage": {
+        "total_duration": 13652685700,
+        "load_duration": 2066300,
+        "prompt_eval_count": 3524,
+        "prompt_eval_duration": 495623000,
+        "eval_count": 3879,
+        "eval_duration": 13127913000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "71b9ff60a981595430794133b6bf7f9d42529b061a74302e298bcc3e44a2ade2",
+      "errors": [
+        "g7: cannot provisionally merge separate objects in the same view: ['v3_o3', 'v3_o8', 'v3_o9']. Split into separate global objects and update Mapping, or mark the node AND all those Mapping rows unresolved; preserve ambiguity."
+      ]
+    },
+    {
+      "task": "correspondence",
+      "number": 2,
+      "started_at": "2026-10-21T16:21:16.447930+00:00",
+      "status": "invalid",
+      "prompt_sha256": "e7a2639beb5c0d3c3dc479674995dc7765dad13de62ce1a246aa07fa7a95e749",
+      "finished_at": "2026-10-21T16:21:26.275838+00:00",
+      "usage": {
+        "total_duration": 7813926000,
+        "load_duration": 2589400,
+        "prompt_eval_count": 5185,
+        "prompt_eval_duration": 270462000,
+        "eval_count": 2200,
+        "eval_duration": 7500269000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "dde5a1b39da154feea839ff43b0be3fdc7c48665a9e3eef23766e39b97eed0d5",
+      "errors": [
+        "Invalid global IDs: ['g7a', 'g7b', 'g7c', 'g7d']. Use only g plus a positive integer (g1, g2, g3, ...), with no underscores or words. Rename EVERY such ID to a distinct unused numeric ID and update ALL its references in Mapping and Ambiguities."
+      ]
+    },
+    {
+      "task": "correspondence",
+      "number": 3,
+      "started_at": "2026-10-21T16:21:26.280043+00:00",
+      "status": "valid",
+      "prompt_sha256": "746f2679b7b24e1ec8517b07e715289a10e25e026d045c50eb4dd40628c25093",
+      "finished_at": "2026-10-21T16:21:38.599195+00:00",
+      "usage": {
+        "total_duration": 10297683800,
+        "load_duration": 2593600,
+        "prompt_eval_count": 5284,
+        "prompt_eval_duration": 296744000,
+        "eval_count": 3000,
+        "eval_duration": 9981736000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "8d531167922a65d6afc8e6dd1e4bdf2c0975bf0a191b56e28a2d50bd4a48cd0f"
+    },
+    {
+      "task": "scene_graph",
+      "number": 1,
+      "started_at": "2026-10-21T16:21:38.606198+00:00",
+      "status": "invalid",
+      "prompt_sha256": "81b19f733e8f4caf21bb4d3fc50613d08a9d33582a6edf60dd6a704d3f90969e",
+      "finished_at": "2026-10-21T16:21:57.422724+00:00",
+      "usage": {
+        "total_duration": 16756045500,
+        "load_duration": 3312400,
+        "prompt_eval_count": 7635,
+        "prompt_eval_duration": 1135779000,
+        "eval_count": 4388,
+        "eval_duration": 15562905000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "a7bf0dcc57f4acf59c4d8c4b5a32a53f9c0a48f9eb62d64e4ec5bb2af5c54f96",
+      "errors": [
+        "e5: v1_r5 endpoints do not support triple order"
+      ]
+    },
+    {
+      "task": "scene_graph",
+      "number": 2,
+      "started_at": "2026-10-21T16:21:57.432030+00:00",
+      "status": "invalid",
+      "prompt_sha256": "3b765295fc0dc788fdb3d4b6d0c79e76fb996cf896cfcfb32efaa974c500aec5",
+      "finished_at": "2026-10-21T16:22:10.292082+00:00",
+      "usage": {
+        "total_duration": 10817872700,
+        "load_duration": 2780500,
+        "prompt_eval_count": 9365,
+        "prompt_eval_duration": 308583000,
+        "eval_count": 2900,
+        "eval_duration": 10483748000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "84f8ee3579e529ed6afcd1552512c8e76b2c8bcd893398b3f29e4f4d5814e496",
+      "errors": [
+        "e5: v1_r5 endpoints do not support triple order"
+      ]
+    },
+    {
+      "task": "scene_graph",
+      "number": 3,
+      "started_at": "2026-10-21T16:22:10.299912+00:00",
+      "status": "valid",
+      "prompt_sha256": "797d94b33a5363de6f8fbef4a5f27c70aff42630df3099c3effa83cdedd85ccd",
+      "finished_at": "2026-10-21T16:22:21.447658+00:00",
+      "usage": {
+        "total_duration": 9103171200,
+        "load_duration": 2770500,
+        "prompt_eval_count": 9364,
+        "prompt_eval_duration": 184644000,
+        "eval_count": 2474,
+        "eval_duration": 8892523000
+      },
+      "done_reason": "stop",
+      "raw_sha256": "6446826d2dc6161f66da8d2d470bf93c67e991cf1d5c74e43ab4b606b3e2e440"
+    }
+  ],
+  "updated_at": "2026-10-21T16:22:21.456849+00:00",
+  "server": {
+    "version": "0.35.0",
+    "model": "gemma4:e4b",
+    "digest": "dc35e8d9c6061baa6f0fa870975ab6932e2542b579b13ea0f199fa4bb7300c9c",
+    "details": {
+      "parent_model": "gemma4-validation-20260929:e4b-imatrix-attention-q6-q8-draft2",
+      "format": "gguf",
+      "family": "gemma4",
+      "families": [
+        "gemma4"
+      ],
+      "parameter_size": "7.5B",
+      "quantization_level": "Q4_K_M"
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "audio",
+      "tools",
+      "thinking"
+    ]
+  }
+}

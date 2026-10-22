@@ -1,0 +1,48 @@
+{
+  "scope": "Text structure and provenance only; not a judgment of visual correctness.",
+  "tasks": {
+    "view_1": {
+      "valid": true,
+      "counts": {
+        "objects": 9,
+        "relations": 8
+      }
+    },
+    "view_2": {
+      "valid": true,
+      "counts": {
+        "objects": 12,
+        "relations": 7
+      }
+    },
+    "view_3": {
+      "valid": true,
+      "counts": {
+        "objects": 12,
+        "relations": 7
+      }
+    },
+    "view_4": {
+      "valid": true,
+      "counts": {
+        "objects": 7,
+        "relations": 6
+      }
+    },
+    "correspondence": {
+      "valid": true,
+      "counts": {
+        "nodes": 24,
+        "mapping": 40
+      }
+    },
+    "scene_graph": {
+      "valid": true,
+      "counts": {
+        "nodes": 24,
+        "edges": 18,
+        "requests": 4
+      }
+    }
+  }
+}

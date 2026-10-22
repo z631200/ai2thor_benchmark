@@ -1,0 +1,47 @@
+{
+  "coordinate_system": "AI2-THOR world: X/Z horizontal, Y up; yaw 0 faces +Z, 90 faces +X. Positive cameraHorizon looks down; negative looks up.",
+  "position_unit": "meter",
+  "rotation_unit": "degree",
+  "views": {
+    "view_1": {
+      "cameraPosition": {
+        "x": -1.25,
+        "y": 1.575999140739441,
+        "z": -1.75
+      },
+      "yaw": 38.65980911254883,
+      "cameraHorizon": -0.0,
+      "fov": 90.0
+    },
+    "view_2": {
+      "cameraPosition": {
+        "x": 2.0,
+        "y": 1.575999140739441,
+        "z": -2.0
+      },
+      "yaw": 320.52752685546875,
+      "cameraHorizon": 0.0,
+      "fov": 90.0
+    },
+    "view_3": {
+      "cameraPosition": {
+        "x": 2.0,
+        "y": 1.575999140739441,
+        "z": 2.0
+      },
+      "yaw": 223.02505493164062,
+      "cameraHorizon": 0.0,
+      "fov": 90.0
+    },
+    "view_4": {
+      "cameraPosition": {
+        "x": -1.5,
+        "y": 1.575999140739441,
+        "z": 2.0
+      },
+      "yaw": 136.9749298095703,
+      "cameraHorizon": -0.0,
+      "fov": 90.0
+    }
+  }
+}
