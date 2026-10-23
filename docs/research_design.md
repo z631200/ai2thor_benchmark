@@ -38,6 +38,29 @@
 - **影像**：階段 1、4 必須實際附上圖片，不能只提供檔名。
 - **使用方式**：每次選中文或英文，將下列「共通規則」與該階段 prompt 一起送入模型，並填入所有變數。
 
+### 階段 2–3 的相機資訊細節
+
+依 [run_scene_graph.py](../run_scene_graph.py) 的 `load_scene()`，程式讀取 `views.json` 後，以白名單重建 `scene["cameras"]`，並由 `execute()` 保存成 `camera_metadata.json`。它不是完整的 `views.json`，內容如下：
+
+| 傳入欄位 | 程式來源與意義 |
+| --- | --- |
+| `coordinate_system` | 程式固定加入的座標說明：AI2-THOR 世界座標 X／Z 為水平面、Y 向上；yaw 0° 朝 +Z、90° 朝 +X；`cameraHorizon` 正值向下看、負值向上看。不是直接轉傳原檔的座標說明。 |
+| `position_unit`、`rotation_unit` | 固定為 `meter`、`degree`；輸入也必須符合這兩個單位，否則停止。 |
+| `views.view_1`～`views.view_4` | 將輸入依圖片檔名排序，`view_01.png`～`view_04.png` 依序對應四個視角 ID；不是依原陣列順序或相機位置編號。 |
+| 各視角的 `cameraPosition` | 取該筆 `cameraPosition.x/y/z`，表示相機的世界座標，單位公尺；不以 `agent.position` 代替，缺少時停止。 |
+| 各視角的 `yaw` | 只取 `agent.rotation.y`，表示水平朝向，單位度；不傳入完整 rotation。 |
+| 各視角的 `cameraHorizon` | 取 `agent.cameraHorizon`，表示向下／向上的俯仰角，單位度。 |
+| 各視角的 `fov` | 取該筆 `fov`，表示視野角，單位度；必須大於 0 且小於 180。 |
+
+位置與角度都須為有限數值。`agent.position`、其他 agent 狀態、場景名稱、`object_count` 與其餘非白名單欄位不會包含在這份相機資料中；程式也不讀取 `objects.json/.csv`。
+
+兩階段使用**同一份** `scene["cameras"]`。[scene_prompts.py](../scene_prompts.py) 的 `correspondence_prompt()` 與 `graph_prompt()` 都用 `json.dumps(cameras, indent=2)` 將它轉成文字，放入 `Camera information:`，沒有在第三階段增加相機欄位或重新估計姿態：
+
+- **階段 2**：相機資訊與四份局部觀察一起提供，供模型結合外觀、特徵及鄰近關係判斷跨視角物件對應。
+- **階段 3**：沿用相機資訊，另加入局部觀察、物件對應、關係定義與來源對照，供模型區分參考視角、整理關係及衝突。`image_left_of`、`closer_to_camera` 仍以來源 `view_N` 為參考系，`on`、`inside` 使用 `physical`。
+
+這些資料不包含相機內外參矩陣、深度圖或物件三維座標。程式沒有據此執行三角定位；目前 `RELATIONS` 也禁止度量、世界方向及反向／遞移推導，圖邊須引用直接報告的局部關係。相機姿態不等於已知物件位置。
+
 ## 三、共通規則
 
 ### 中文版
